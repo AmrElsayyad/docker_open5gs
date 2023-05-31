@@ -14,6 +14,9 @@ services:
     expose:
       - "27017/udp"
       - "27017/tcp"
+    ports:
+      - "27017:27017/udp"
+      - "27017:27017/tcp"
     networks:
       default:
         ipv4_address: ${MONGO_IP}
@@ -213,13 +216,16 @@ services:
     expose:
       - "3868/udp"
       - "3868/tcp"
-      - "3868/sctp"
+      # - "3868/sctp"
       - "5868/udp"
       - "5868/tcp"
       - "5868/sctp"
-    networks:
-      default:
-        ipv4_address: ${HSS_IP}
+    # ports:
+    #   - "3868:3868/tcp"
+    #   - "3868:3868/sctp"
+    network_mode: host
+      # default:
+      #   ipv4_address: ${HSS_IP}
   sgwc:
     image: docker_open5gs
     depends_on:
@@ -291,6 +297,8 @@ services:
       - "2123/udp"
       - "7777/tcp"
       - "9091/tcp"
+    ports:
+      - "2123:2123/udp"
     networks:
       default:
         ipv4_address: ${SMF_IP}
@@ -314,8 +322,8 @@ services:
       - "2152/udp"
       - "8805/udp"
       - "9091/tcp"
-    # ports:
-    #   - "2152:2152/udp"
+    ports:
+      - "2152:2152/udp"
     cap_add:
       - NET_ADMIN
     privileged: true
@@ -325,6 +333,10 @@ services:
     networks:
       default:
         ipv4_address: ${UPF_IP}
+      # network2:
+      #   ipv4_address: 172.22.1.2
+      # network3:
+      #   ipv4_address: 172.22.2.2
   amf:
     image: docker_open5gs
     depends_on:
@@ -354,40 +366,40 @@ services:
     networks:
       default:
         ipv4_address: ${AMF_IP}
-  mme:
-    image: docker_open5gs
-    depends_on:
-      - hss
-      - sgwc
-      - sgwu
-      - smf
-      - upf
-      - osmomsc
-    container_name: mme
-    env_file:
-      - .env
-    environment:
-      - COMPONENT_NAME=mme-1
-    volumes:
-      - ./mme:/mnt/mme
-      - ./log:/open5gs/install/var/log/open5gs
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
-    expose:
-      - "3868/udp"
-      - "3868/tcp"
-      - "3868/sctp"
-      - "5868/udp"
-      - "5868/tcp"
-      - "5868/sctp"
-      - "36412/sctp"
-      - "2123/udp"
-      - "9091/tcp"
-    # ports:
-    #   - "36412:36412/sctp"
-    networks:
-      default:
-        ipv4_address: ${MME_IP}
+  # mme:
+  #   image: docker_open5gs
+  #   depends_on:
+  #     - hss
+  #     - sgwc
+  #     - sgwu
+  #     - smf
+  #     - upf
+  #     # - osmomsc
+  #   container_name: mme
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     - COMPONENT_NAME=mme-1
+  #   volumes:
+  #     - ./mme:/mnt/mme
+  #     - ./log:/open5gs/install/var/log/open5gs
+  #     - /etc/timezone:/etc/timezone:ro
+  #     - /etc/localtime:/etc/localtime:ro
+  #   expose:
+  #     - "3868/udp"
+  #     - "3868/tcp"
+  #     - "3868/sctp"
+  #     - "5868/udp"
+  #     - "5868/tcp"
+  #     - "5868/sctp"
+  #     - "36412/sctp"
+  #     - "2123/udp"
+  #     - "9091/tcp"
+  #   # ports:
+  #   #   - "36412:36412/sctp"
+  #   networks:
+  #     default:
+  #       ipv4_address: ${MME_IP}
   pcrf:
     image: docker_open5gs
     container_name: pcrf
@@ -572,15 +584,15 @@ services:
       - "5100-5120/udp"
       - "6100-6120/tcp"
       - "6100-6120/udp"
-    # ports:
-    #   - "3871:3871/udp"
-    #   - "3871:3871/tcp"
-    #   - "5060:5060/tcp"
-    #   - "5060:5060/udp"
-    #   - "5100-5120:5100-5120/tcp"
-    #   - "5100-5120:5100-5120/udp"
-    #   - "6100-6120:6100-6120/tcp"
-    #   - "6100-6120:6100-6120/udp"
+    ports:
+      - "3871:3871/udp"
+      - "3871:3871/tcp"
+      - "5060:5060/tcp"
+      - "5060:5060/udp"
+      - "5100-5120:5100-5120/tcp"
+      - "5100-5120:5100-5120/udp"
+      - "6100-6120:6100-6120/tcp"
+      - "6100-6120:6100-6120/udp"
     networks:
       default:
         ipv4_address: ${PCSCF_IP}
@@ -659,11 +671,61 @@ services:
     networks:
       default:
         ipv4_address: ${METRICS_IP}
+  pdn1:
+    image: ubuntu:20.04
+    entrypoint: "sleep 1000000"
+    container_name: pdn1
+    env_file:
+      - .env
+    expose:
+      - "2152/udp"
+      - "8805/udp"
+      - "9091/tcp"
+    # ports:
+    #   - "2152:2152/udp"
+    cap_add:
+      - NET_ADMIN
+    privileged: true
+    sysctls:
+      - net.ipv4.ip_forward=1
+      #- net.ipv6.conf.all.disable_ipv6=0
+    networks:
+      default:
+        ipv4_address: 172.22.0.200
+  # pdn2:
+  #   image: ubuntu:20.04
+  #   entrypoint: "sleep 1000000"
+  #   container_name: pdn2
+  #   env_file:
+  #     - .env
+  #   expose:
+  #     - "2152/udp"
+  #     - "8805/udp"
+  #     - "9091/tcp"
+  #   # ports:
+  #   #   - "2152:2152/udp"
+  #   cap_add:
+  #     - NET_ADMIN
+  #   privileged: true
+  #   sysctls:
+  #     - net.ipv4.ip_forward=1
+  #     #- net.ipv6.conf.all.disable_ipv6=0
+  #   networks:
+  #     network3:
+  #       ipv4_address: 172.22.2.200
 networks:
   default:
     ipam:
       config:
         - subnet: ${TEST_NETWORK}
+  # network2:
+  #   ipam:
+  #     config:
+  #       - subnet: 172.22.1.0/24
+  # network3:
+  #   ipam:
+  #     config:
+  #       - subnet: 172.22.2.0/24
 volumes:
   mongodbdata: {}
   dbdata: {}

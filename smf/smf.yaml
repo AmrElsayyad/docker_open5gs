@@ -12,9 +12,22 @@ parameter:
 
 smf:
     freeDiameter: /open5gs/install/etc/freeDiameter/smf.conf
+    info:
+      - s_nssai:
+          - sst: 1
+            sd: 000001
+            dnn:
+              - internet
+        tai:
+          - plmn_id:
+              mcc: 001
+              mnc: 01
+            tac: 1
     sbi:
       - addr: SMF_IP
         port: 7777
+    ctf :
+      enabled: auto    
     gtpc:
       - addr: SMF_IP
     gtpu:
