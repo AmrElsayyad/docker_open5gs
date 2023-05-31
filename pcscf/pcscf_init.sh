@@ -84,3 +84,4 @@ sed -i 's|RTPENGINE_IP|'$RTPENGINE_IP'|g' /etc/kamailio_pcscf/kamailio_pcscf.cfg
 
 # Add static route to route traffic back to UE as there is not NATing
 ip r add 192.168.101.0/24 via ${UPF_IP}
+ip r add 192.168.101.0/24 via ${UPF1_IP}

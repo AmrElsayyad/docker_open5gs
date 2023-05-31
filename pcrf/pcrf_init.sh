@@ -39,6 +39,7 @@ cp /mnt/pcrf/make_certs.sh install/etc/freeDiameter
 sed -i 's|MONGO_IP|'$MONGO_IP'|g' install/etc/open5gs/pcrf.yaml
 sed -i 's|PCRF_IP|'$PCRF_IP'|g' install/etc/freeDiameter/pcrf.conf
 sed -i 's|SMF_IP|'$SMF_IP'|g' install/etc/freeDiameter/pcrf.conf
+# sed -i 's|SMF1_IP|'$SMF1_IP'|g' install/etc/freeDiameter/pcrf.conf
 sed -i 's|EPC_DOMAIN|'$EPC_DOMAIN'|g' install/etc/freeDiameter/pcrf.conf
 sed -i 's|IMS_DOMAIN|'$IMS_DOMAIN'|g' install/etc/freeDiameter/pcrf.conf
 sed -i 's|PCSCF_IP|'$PCSCF_IP'|g' install/etc/freeDiameter/pcrf.conf
