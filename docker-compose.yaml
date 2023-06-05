@@ -220,7 +220,6 @@ services:
     # ports:
     #   - "3868:3868/tcp"
     #   - "3868:3868/sctp"
-
     networks:
       default:
         ipv4_address: ${HSS_IP}
@@ -456,6 +455,7 @@ services:
     networks:
       default:
         ipv4_address: ${MME_IP}
+    #network_mode: host
   pcrf:
     image: docker_open5gs
     container_name: pcrf
