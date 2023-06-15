@@ -659,6 +659,27 @@ services:
     networks:
       default:
         ipv4_address: ${METRICS_IP}
+  pdn:
+    image: ubuntu:20.04
+    entrypoint: "sleep 1000000"
+    container_name: pdn
+    env_file:
+      - .env
+    expose:
+      - "2152/udp"
+      - "8805/udp"
+      - "9091/tcp"
+    # ports:
+    #   - "2152:2152/udp"
+    cap_add:
+      - NET_ADMIN
+    privileged: true
+    sysctls:
+      - net.ipv4.ip_forward=1
+      #- net.ipv6.conf.all.disable_ipv6=0
+    networks:
+      default:
+        ipv4_address: 172.24.0.200
 networks:
   default:
     ipam:
