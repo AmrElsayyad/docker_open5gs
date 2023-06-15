@@ -217,6 +217,13 @@ services:
       - "5868/udp"
       - "5868/tcp"
       - "5868/sctp"
+    ports:
+      - "3868:3868/udp"
+      - "3868:3868/tcp"
+      - "3868:3868/sctp"
+      - "5868:5868/udp"
+      - "5868:5868/tcp"
+      - "5868:5868/sctp"
     networks:
       default:
         ipv4_address: ${HSS_IP}
@@ -409,6 +416,13 @@ services:
       - "5868/udp"
       - "5868/tcp"
       - "5868/sctp"
+    ports:
+      - "3869:3868/udp"
+      - "3869:3868/tcp"
+      - "3869:3868/sctp"
+      - "5869:5868/udp"
+      - "5869:5868/tcp"
+      - "5869:5868/sctp"
     networks:
       default:
         ipv4_address: ${PCRF_IP}
