@@ -325,6 +325,8 @@ services:
     networks:
       default:
         ipv4_address: ${UPF_IP}
+      network2:
+        ipv4_address: 172.23.0.2
   amf:
     image: docker_open5gs
     depends_on:
@@ -659,11 +661,59 @@ services:
     networks:
       default:
         ipv4_address: ${METRICS_IP}
+  pdn:
+    image: ubuntu:20.04
+    entrypoint: "sleep 1000000"
+    container_name: pdnInternet
+    env_file:
+      - .env
+    expose:
+      - "2152/udp"
+      - "8805/udp"
+      - "9091/tcp"
+    # ports:
+    #   - "2152:2152/udp"
+    cap_add:
+      - NET_ADMIN
+    privileged: true
+    sysctls:
+      - net.ipv4.ip_forward=1
+      #- net.ipv6.conf.all.disable_ipv6=0
+    networks:
+      default:
+        ipv4_address: 172.22.0.200
+  pdnIMS:
+    image: ubuntu:20.04
+    entrypoint: "/mnt/pdnIMS_init.sh"
+    container_name: pdnIMS
+    env_file:
+      - .env
+    volumes:
+      - ./pdnIMS_init.sh:/mnt/pdnIMS_init.sh
+    expose:
+      - "2152/udp"
+      - "8805/udp"
+      - "9091/tcp"
+    # ports:
+    #   - "2152:2152/udp"
+    cap_add:
+      - NET_ADMIN
+    privileged: true
+    sysctls:
+      - net.ipv4.ip_forward=1
+      #- net.ipv6.conf.all.disable_ipv6=0
+    networks:
+      network2:
+        ipv4_address: 172.23.0.200
 networks:
   default:
     ipam:
       config:
         - subnet: ${TEST_NETWORK}
+  network2:
+    ipam:
+      config:
+        - subnet: 172.23.0.0/24
 volumes:
   mongodbdata: {}
   dbdata: {}

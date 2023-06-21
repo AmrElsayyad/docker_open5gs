@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x 
 
 # BSD 2-Clause License
 
