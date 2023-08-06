@@ -46,6 +46,10 @@ elif [[ "$COMPONENT_NAME" =~ ^(hss-[[:digit:]]+$) ]]; then
 	echo "Deploying component: '$COMPONENT_NAME'"
 	/mnt/hss/hss_init.sh  && \
 	cd install/bin && sleep 10 && ./open5gs-hssd
+elif [[ "$COMPONENT_NAME" =~ ^(aaa-[[:digit:]]+$) ]]; then
+	echo "Deploying component: '$COMPONENT_NAME'"
+	/mnt/aaa/aaa_init.sh  && \
+	cd install/bin && sleep 10 && ./open5gs-aaad
 elif [[ "$COMPONENT_NAME" =~ ^(mme-[[:digit:]]+$) ]]; then
 	echo "Deploying component: '$COMPONENT_NAME'"
 	/mnt/mme/mme_init.sh  && \
