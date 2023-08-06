@@ -1,0 +1,9 @@
+db_uri: mongodb://MONGO_IP/open5gs
+
+logger:
+    file: /open5gs/install/var/log/open5gs/aaa.log
+
+parameter:
+
+aaa:
+    freeDiameter: /open5gs/install/etc/freeDiameter/aaa.conf
