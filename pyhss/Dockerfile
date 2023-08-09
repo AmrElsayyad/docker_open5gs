@@ -40,6 +40,7 @@ RUN apt-get update && \
         libsystemd-dev \
         libmysqlclient-dev \
         gcc \
+        tcpdump \
         mysql-server
         
 
