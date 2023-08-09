@@ -125,5 +125,7 @@ COPY ./upf /mnt/upf
 COPY ./mme /mnt/mme
 COPY ./pcrf /mnt/pcrf
 
+RUN mkdir -p /open5gs/install/var/log/open5gs
+
 COPY ./base/open5gs_init.sh /
 CMD /open5gs_init.sh
