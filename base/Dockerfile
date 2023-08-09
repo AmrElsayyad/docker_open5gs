@@ -97,6 +97,7 @@ RUN apt-get update && \
         python3-wheel \
         python3-pip \
         iptables \
+        tcpdump \
         iperf && \
     apt-get autoremove -y && apt-get autoclean
 
