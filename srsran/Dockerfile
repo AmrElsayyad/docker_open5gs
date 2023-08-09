@@ -31,7 +31,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Install updates and dependencies
 RUN apt-get update && \
     apt-get -y install cmake make gcc g++ pkg-config libfftw3-dev libmbedtls-dev libsctp-dev libyaml-cpp-dev libgtest-dev \
-    libzmq3-dev software-properties-common pkg-config net-tools iputils-ping git
+    libzmq3-dev software-properties-common pkg-config net-tools iputils-ping git tcpdump
 
 # UHD drivers for USRP
 RUN add-apt-repository ppa:ettusresearch/uhd && \
