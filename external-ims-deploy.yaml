@@ -18,6 +18,7 @@ services:
       default:
         ipv4_address: ${MONGO_IP}
   webui:
+    build: ./base
     image: docker_open5gs
     container_name: webui
     depends_on:
@@ -38,6 +39,7 @@ services:
       default:
         ipv4_address: ${WEBUI_IP}
   hss:
+    build: ./base
     image: docker_open5gs
     container_name: hss
     env_file:
@@ -60,6 +62,7 @@ services:
       default:
         ipv4_address: ${HSS_IP}
   sgwc:
+    build: ./base
     image: docker_open5gs
     depends_on:
       - smf
@@ -81,6 +84,7 @@ services:
       default:
         ipv4_address: ${SGWC_IP}
   sgwu:
+    build: ./base
     image: docker_open5gs
     depends_on:
       - smf
@@ -104,6 +108,7 @@ services:
       default:
         ipv4_address: ${SGWU_IP}
   smf:
+    build: ./base
     image: docker_open5gs
     container_name: smf
     env_file:
@@ -129,6 +134,7 @@ services:
       default:
         ipv4_address: ${SMF_IP}
   upf:
+    build: ./base
     image: docker_open5gs
     depends_on:
       - smf
@@ -154,6 +160,7 @@ services:
     #   - net.ipv6.conf.all.disable_ipv6=0
     network_mode: host
   mme:
+    build: ./base
     image: docker_open5gs
     depends_on:
       - hss
@@ -186,6 +193,7 @@ services:
       default:
         ipv4_address: ${MME_IP}
   pcrf:
+    build: ./base
     image: docker_open5gs
     container_name: pcrf
     env_file:

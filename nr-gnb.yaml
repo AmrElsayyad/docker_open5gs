@@ -1,6 +1,7 @@
 version: '3'
 services:
   nr_gnb:
+    build: ./ueransim
     image: docker_ueransim
     container_name: nr_gnb
     stdin_open: true

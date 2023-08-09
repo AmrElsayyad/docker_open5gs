@@ -18,6 +18,7 @@ services:
       default:
         ipv4_address: ${MONGO_IP}
   webui:
+    build: ./base
     image: docker_open5gs
     container_name: webui
     depends_on:
@@ -38,6 +39,7 @@ services:
       default:
         ipv4_address: ${WEBUI_IP}
   nrf:
+    build: ./base
     image: docker_open5gs
     container_name: nrf
     env_file:
@@ -55,6 +57,7 @@ services:
       default:
         ipv4_address: ${NRF_IP}
   scp:
+    build: ./base
     image: docker_open5gs
     container_name: scp
     env_file:
@@ -72,6 +75,7 @@ services:
       default:
         ipv4_address: ${SCP_IP}
   ausf:
+    build: ./base
     image: docker_open5gs
     depends_on:
       - nrf
@@ -92,6 +96,7 @@ services:
       default:
         ipv4_address: ${AUSF_IP}
   udr:
+    build: ./base
     image: docker_open5gs
     depends_on:
       - nrf
@@ -113,6 +118,7 @@ services:
       default:
         ipv4_address: ${UDR_IP}
   udm:
+    build: ./base
     image: docker_open5gs
     depends_on:
       - nrf
@@ -133,6 +139,7 @@ services:
       default:
         ipv4_address: ${UDM_IP}
   pcf:
+    build: ./base
     image: docker_open5gs
     depends_on:
       - nrf
@@ -155,6 +162,7 @@ services:
       default:
         ipv4_address: ${PCF_IP}
   bsf:
+    build: ./base
     image: docker_open5gs
     depends_on:
       - nrf
@@ -176,6 +184,7 @@ services:
       default:
         ipv4_address: ${BSF_IP}
   nssf:
+    build: ./base
     image: docker_open5gs
     depends_on:
       - nrf
@@ -197,6 +206,7 @@ services:
       default:
         ipv4_address: ${NSSF_IP}
   hss:
+    build: ./base
     image: docker_open5gs
     container_name: hss
     env_file:
@@ -221,6 +231,7 @@ services:
       default:
         ipv4_address: ${HSS_IP}
   sgwc:
+    build: ./base
     image: docker_open5gs
     depends_on:
       - smf
@@ -242,6 +253,7 @@ services:
       default:
         ipv4_address: ${SGWC_IP}
   sgwu:
+    build: ./base
     image: docker_open5gs
     depends_on:
       - smf
@@ -265,6 +277,7 @@ services:
       default:
         ipv4_address: ${SGWU_IP}
   smf:
+    build: ./base
     image: docker_open5gs
     depends_on:
       - nrf
@@ -296,6 +309,7 @@ services:
       default:
         ipv4_address: ${SMF_IP}
   upf:
+    build: ./base
     image: docker_open5gs
     depends_on:
       - nrf
@@ -327,6 +341,7 @@ services:
       default:
         ipv4_address: ${UPF_IP}
   amf:
+    build: ./base
     image: docker_open5gs
     depends_on:
       - nrf
@@ -356,6 +371,7 @@ services:
       default:
         ipv4_address: ${AMF_IP}
   mme:
+    build: ./base
     image: docker_open5gs
     depends_on:
       - hss
@@ -390,6 +406,7 @@ services:
       default:
         ipv4_address: ${MME_IP}
   pcrf:
+    build: ./base
     image: docker_open5gs
     container_name: pcrf
     env_file:
@@ -497,6 +514,7 @@ services:
       default:
         ipv4_address: ${PYHSS_IP}
   icscf:
+    build: ./ims_base
     image: docker_kamailio
     container_name: icscf
     dns: ${DNS_IP}
@@ -521,6 +539,7 @@ services:
       default:
         ipv4_address: ${ICSCF_IP}
   scscf:
+    build: ./ims_base
     image: docker_kamailio
     container_name: scscf
     dns: ${DNS_IP}
@@ -545,6 +564,7 @@ services:
       default:
         ipv4_address: ${SCSCF_IP}
   pcscf:
+    build: ./ims_base
     image: docker_kamailio
     container_name: pcscf
     dns: ${DNS_IP}
@@ -587,6 +607,7 @@ services:
       default:
         ipv4_address: ${PCSCF_IP}
   smsc:
+    build: ./ims_base
     image: docker_kamailio
     container_name: smsc
     dns: ${DNS_IP}

@@ -1,6 +1,7 @@
 version: '3'
 services:
   nr_ue:
+    build: ./ueransim
     image: docker_ueransim
     container_name: nr_ue
     stdin_open: true

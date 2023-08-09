@@ -1,6 +1,7 @@
 version: '3'
 services:
   srsue_zmq:
+    build: ./srslte
     image: docker_srslte
     container_name: srsue_zmq
     stdin_open: true

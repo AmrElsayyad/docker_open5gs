@@ -1,6 +1,7 @@
 version: '3'
 services:
   srsgnb:
+    build: ./srsran
     image: docker_srsran
     container_name: srsgnb
     stdin_open: true

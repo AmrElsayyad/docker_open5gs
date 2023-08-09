@@ -1,6 +1,7 @@
 version: '3'
 services:
   srsgnb_zmq:
+    build: ./srsran
     image: docker_srsran
     container_name: srsgnb_zmq
     stdin_open: true
