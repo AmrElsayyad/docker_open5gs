@@ -76,6 +76,7 @@ RUN apt-get update && \
         netbase \
         ifupdown \
         net-tools \
+        tcpdump \
         iputils-ping && \
     apt-get autoremove -y && apt-get autoclean
 
