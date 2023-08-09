@@ -24,7 +24,7 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-FROM ubuntu:focal as builder
+FROM ubuntu:focal AS builder
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -115,7 +115,15 @@ COPY --from=builder /open5gs/install/lib /open5gs/install/lib
 COPY --from=builder /open5gs/webui /open5gs/webui
 
 # Set the working directory to open5gs
-WORKDIR open5gs
+WORKDIR /open5gs
 
-COPY open5gs_init.sh /
+COPY ./hss /mnt/hss
+COPY ./sgwc /mnt/sgwc
+COPY ./sgwu /mnt/sgwu
+COPY ./smf /mnt/smf
+COPY ./upf /mnt/upf
+COPY ./mme /mnt/mme
+COPY ./pcrf /mnt/pcrf
+
+COPY ./base/open5gs_init.sh /
 CMD /open5gs_init.sh

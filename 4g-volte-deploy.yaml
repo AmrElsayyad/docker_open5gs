@@ -18,7 +18,8 @@ services:
       default:
         ipv4_address: ${MONGO_IP}
   webui:
-    build: ./base
+    build:
+      dockerfile: ./base/Dockerfile
     image: docker_open5gs
     container_name: webui
     depends_on:
@@ -27,10 +28,10 @@ services:
       - .env
     environment:
       - COMPONENT_NAME=webui
-    volumes:
-      - ./webui:/mnt/webui
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
+    # volumes:
+    #   - ./webui:/mnt/webui
+    #   - /etc/timezone:/etc/timezone:ro
+    #   - /etc/localtime:/etc/localtime:ro
     expose:
       - "3000/tcp"
     ports:
@@ -39,18 +40,19 @@ services:
       default:
         ipv4_address: ${WEBUI_IP}
   hss:
-    build: ./base
+    build:
+      dockerfile: ./base/Dockerfile
     image: docker_open5gs
     container_name: hss
     env_file:
       - .env
     environment:
       - COMPONENT_NAME=hss-1
-    volumes:
-      - ./hss:/mnt/hss
-      - ./log:/open5gs/install/var/log/open5gs
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
+    # volumes:
+    #   - ./hss:/mnt/hss
+    #   - ./log:/open5gs/install/var/log/open5gs
+    #   - /etc/timezone:/etc/timezone:ro
+    #   - /etc/localtime:/etc/localtime:ro
     depends_on:
       - mongo
     expose:
@@ -64,7 +66,8 @@ services:
       default:
         ipv4_address: ${HSS_IP}
   sgwc:
-    build: ./base
+    build:
+      dockerfile: ./base/Dockerfile
     image: docker_open5gs
     depends_on:
       - smf
@@ -74,11 +77,11 @@ services:
       - .env
     environment:
       - COMPONENT_NAME=sgwc-1
-    volumes:
-      - ./sgwc:/mnt/sgwc
-      - ./log:/open5gs/install/var/log/open5gs
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
+    # volumes:
+    #   - ./sgwc:/mnt/sgwc
+    #   - ./log:/open5gs/install/var/log/open5gs
+    #   - /etc/timezone:/etc/timezone:ro
+    #   - /etc/localtime:/etc/localtime:ro
     expose:
       - "2123/udp"
       - "8805/udp"
@@ -86,7 +89,8 @@ services:
       default:
         ipv4_address: ${SGWC_IP}
   sgwu:
-    build: ./base
+    build:
+      dockerfile: ./base/Dockerfile
     image: docker_open5gs
     depends_on:
       - smf
@@ -96,11 +100,11 @@ services:
       - .env
     environment:
       - COMPONENT_NAME=sgwu-1
-    volumes:
-      - ./sgwu:/mnt/sgwu
-      - ./log:/open5gs/install/var/log/open5gs
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
+    # volumes:
+    #   - ./sgwu:/mnt/sgwu
+    #   - ./log:/open5gs/install/var/log/open5gs
+    #   - /etc/timezone:/etc/timezone:ro
+    #   - /etc/localtime:/etc/localtime:ro
     expose:
       - "8805/udp"
       - "2152/udp"
@@ -110,7 +114,8 @@ services:
       default:
         ipv4_address: ${SGWU_IP}
   smf:
-    build: ./base
+    build:
+      dockerfile: ./base/Dockerfile
     image: docker_open5gs
     container_name: smf
     env_file:
@@ -118,11 +123,11 @@ services:
     environment:
       - COMPONENT_NAME=smf-1
       - DEPLOY_MODE=4G
-    volumes:
-      - ./smf:/mnt/smf
-      - ./log:/open5gs/install/var/log/open5gs
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
+    # volumes:
+    #   - ./smf:/mnt/smf
+    #   - ./log:/open5gs/install/var/log/open5gs
+    #   - /etc/timezone:/etc/timezone:ro
+    #   - /etc/localtime:/etc/localtime:ro
     expose:
       - "3868/udp"
       - "3868/tcp"
@@ -138,7 +143,8 @@ services:
       default:
         ipv4_address: ${SMF_IP}
   upf:
-    build: ./base
+    build:
+      dockerfile: ./base/Dockerfile
     image: docker_open5gs
     depends_on:
       - smf
@@ -147,11 +153,11 @@ services:
       - .env
     environment:
       - COMPONENT_NAME=upf-1
-    volumes:
-      - ./upf:/mnt/upf
-      - ./log:/open5gs/install/var/log/open5gs
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
+    # volumes:
+    #   - ./upf:/mnt/upf
+    #   - ./log:/open5gs/install/var/log/open5gs
+    #   - /etc/timezone:/etc/timezone:ro
+    #   - /etc/localtime:/etc/localtime:ro
     expose:
       - "2152/udp"
       - "8805/udp"
@@ -165,7 +171,8 @@ services:
       default:
         ipv4_address: ${UPF_IP}
   mme:
-    build: ./base
+    build:
+      dockerfile: ./base/Dockerfile
     image: docker_open5gs
     depends_on:
       - hss
@@ -179,11 +186,11 @@ services:
       - .env
     environment:
       - COMPONENT_NAME=mme-1
-    volumes:
-      - ./mme:/mnt/mme
-      - ./log:/open5gs/install/var/log/open5gs
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
+    # volumes:
+    #   - ./mme:/mnt/mme
+    #   - ./log:/open5gs/install/var/log/open5gs
+    #   - /etc/timezone:/etc/timezone:ro
+    #   - /etc/localtime:/etc/localtime:ro
     expose:
       - "3868/udp"
       - "3868/tcp"
@@ -200,7 +207,8 @@ services:
       default:
         ipv4_address: ${MME_IP}
   pcrf:
-    build: ./base
+    build:
+      dockerfile: ./base/Dockerfile
     image: docker_open5gs
     container_name: pcrf
     env_file:
@@ -209,11 +217,11 @@ services:
       - COMPONENT_NAME=pcrf-1
     depends_on:
       - mongo
-    volumes:
-      - ./pcrf:/mnt/pcrf
-      - ./log:/open5gs/install/var/log/open5gs
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
+    # volumes:
+    #   - ./pcrf:/mnt/pcrf
+    #   - ./log:/open5gs/install/var/log/open5gs
+    #   - /etc/timezone:/etc/timezone:ro
+    #   - /etc/localtime:/etc/localtime:ro
     expose:
       - "3868/udp"
       - "3868/tcp"
