@@ -117,6 +117,7 @@ COPY --from=builder /open5gs/webui /open5gs/webui
 # Set the working directory to open5gs
 WORKDIR /open5gs
 
+COPY ./webui /mnt/webui
 COPY ./hss /mnt/hss
 COPY ./sgwc /mnt/sgwc
 COPY ./sgwu /mnt/sgwu
