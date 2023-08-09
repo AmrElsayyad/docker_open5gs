@@ -1,7 +1,8 @@
 version: '3'
 services:
   srsue_5g_zmq:
-    build: ./srslte
+    build:
+      dockerfile: ./srslte/Dockerfile
     image: docker_srslte
     container_name: srsue_5g_zmq
     stdin_open: true
@@ -9,10 +10,10 @@ services:
     cap_add:
       - NET_ADMIN
     privileged: true
-    volumes:
-      - ./srslte:/mnt/srslte
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
+    # volumes:
+    #   - ./srslte:/mnt/srslte
+    #   - /etc/timezone:/etc/timezone:ro
+    #   - /etc/localtime:/etc/localtime:ro
     env_file:
       - .env
     environment:

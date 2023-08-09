@@ -1,7 +1,8 @@
 version: '3'
 services:
   srsenb:
-    build: ./srslte
+    build:
+      dockerfile: ./srslte/Dockerfile
     image: docker_srslte
     container_name: srsenb
     stdin_open: true
@@ -9,12 +10,12 @@ services:
     privileged: true
     devices:
       - "/dev/bus"
-    volumes:
-      - /dev/serial:/dev/serial:ro
-      - /dev/bus/usb:/dev/bus/usb:ro
-      - ./srslte:/mnt/srslte
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
+    # volumes:
+    #   - /dev/serial:/dev/serial:ro
+    #   - /dev/bus/usb:/dev/bus/usb:ro
+    #   - ./srslte:/mnt/srslte
+    #   - /etc/timezone:/etc/timezone:ro
+    #   - /etc/localtime:/etc/localtime:ro
     env_file:
       - .env
     environment:

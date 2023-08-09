@@ -1,16 +1,17 @@
 version: '3'
 services:
   srsenb_zmq:
-    build: ./srslte
+    build:
+      dockerfile: ./srslte/Dockerfile
     image: docker_srslte
     container_name: srsenb_zmq
     stdin_open: true
     tty: true
     privileged: true
-    volumes:
-      - ./srslte:/mnt/srslte
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
+    # volumes:
+    #   - ./srslte:/mnt/srslte
+    #   - /etc/timezone:/etc/timezone:ro
+    #   - /etc/localtime:/etc/localtime:ro
     env_file:
       - .env
     environment:
