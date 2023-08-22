@@ -64,7 +64,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt-get install
 
 # Get open5gs code and install
 RUN git clone --recursive https://github.com/open5gs/open5gs && cd open5gs && \
-    git checkout main && meson build --prefix=`pwd`/install && \
+    git checkout 7f088730ed4bedc12f562e53de44697d5e1f5c6e && meson build --prefix=`pwd`/install && \
     ninja -C build && cd build && ninja install && \
     mkdir -p /open5gs/install/include
 
