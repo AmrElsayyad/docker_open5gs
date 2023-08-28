@@ -62,6 +62,7 @@ sudo ufw disable
 docker-compose -f 4g-volte-deploy.yaml build
 docker-compose -f sa-deploy.yaml build
 sudo sysctl -w net.ipv4.ip_forward=1
+sudo cpupower frequency-set -g performance
 ```
 
 ###### 4G deployment
@@ -71,13 +72,13 @@ sudo sysctl -w net.ipv4.ip_forward=1
 docker-compose -f 4g-volte-deploy.yaml up
 
 # srsRAN eNB using SDR (OTA)
-docker-compose -f srsenb.yaml up -d && docker attach srsenb
+docker-compose -f srsenb.yaml up -d && docker container attach srsenb
 
 # srsRAN ZMQ eNB (RF simulated)
-docker-compose -f srsenb_zmq.yaml up -d && docker attach srsenb_zmq
+docker-compose -f srsenb_zmq.yaml up -d && docker container attach srsenb_zmq
 
 # srsRAN ZMQ 4G UE (RF simulated)
-docker-compose -f srsue_zmq.yaml up -d && docker attach srsue_zmq
+docker-compose -f srsue_zmq.yaml up -d && docker container attach srsue_zmq
 ```
 
 ###### 5G SA deployment
@@ -87,19 +88,19 @@ docker-compose -f srsue_zmq.yaml up -d && docker attach srsue_zmq
 docker-compose -f sa-deploy.yaml up
 
 # srsRAN gNB using SDR (OTA)
-docker-compose -f srsgnb.yaml up -d && docker attach srsgnb
+docker-compose -f srsgnb.yaml up -d && docker container attach srsgnb
 
 # srsRAN ZMQ gNB (RF simulated)
-docker-compose -f srsgnb_zmq.yaml up -d && docker attach srsgnb_zmq
+docker-compose -f srsgnb_zmq.yaml up -d && docker container attach srsgnb_zmq
 
 # srsRAN ZMQ 5G UE (RF simulated)
-docker-compose -f srsue_5g_zmq.yaml up -d && docker attach srsue_5g_zmq
+docker-compose -f srsue_5g_zmq.yaml up -d && docker container attach srsue_5g_zmq
 
 # UERANSIM gNB (RF simulated)
-docker-compose -f nr-gnb.yaml up -d && docker attach nr_gnb
+docker-compose -f nr-gnb.yaml up -d && docker container attach nr_gnb
 
 # UERANSIM NR-UE (RF simulated)
-docker-compose -f nr-ue.yaml up -d && docker attach nr_ue
+docker-compose -f nr-ue.yaml up -d && docker container attach nr_ue
 ```
 
 ## Configuration
@@ -229,15 +230,15 @@ Take note of **apn_id** specified in **Response body** under **Server response**
 {
   "ki": "8baf473f2f8fd09487cccbd7097c6862",
   "opc": "8E27B6AF0E692E750F32667A3B14605D",
-  "amf": "8000"
+  "amf": "8000",
+  "sqn": 0,
+  "imsi": "001010123456790"
 }
 ```
 
 Take note of **auc_id** specified in **Response body** under **Server response**
 
-**Replace ki, opc and amf as per your programmed SIM**
-
-**Execute this step for each of your SIM card only if Ki or OPc or AMF is different than existing one**
+**Replace imsi, ki, opc and amf as per your programmed SIM**
 
 4. Next, select **subscriber** -> **Create new SUBSCRIBER** -> Press on **Try it out**. Then, in payload section use the below example JSON to fill in imsi, auc_id and apn_list for your SIM and then press **Execute**
 
