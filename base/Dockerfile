@@ -24,7 +24,7 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-FROM ubuntu:focal as builder
+FROM ubuntu:focal AS builder
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -104,7 +104,7 @@ RUN apt-get update && \
 RUN pip3 install click
 
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt-get install -y nodejs && \
-    apt-get remove -y curl && apt-get autoremove -y && apt-get autoclean
+apt-get remove -y curl && apt-get autoremove -y && apt-get autoclean
 
 RUN update-ca-certificates
 
@@ -115,7 +115,7 @@ COPY --from=builder /open5gs/install/lib /open5gs/install/lib
 COPY --from=builder /open5gs/webui /open5gs/webui
 
 # Set the working directory to open5gs
-WORKDIR open5gs
+WORKDIR /open5gs
 
 COPY open5gs_init.sh /
 CMD /open5gs_init.sh
